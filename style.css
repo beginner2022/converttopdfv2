@@ -1,0 +1,362 @@
+/* =========================================================
+   PDF Toolkit — shared design system
+   One file, used by every page. Change a token here and it
+   updates the whole site.
+========================================================= */
+
+:root{
+  --ink:#1b2230;
+  --ink-soft:#4b5263;
+  --paper:#faf7f0;
+  --paper-card:#fffdf8;
+  --line:#e4ddc9;
+  --accent:#b4690e;
+  --accent-deep:#8a4f08;
+  --success:#1f7a4c;
+  --error:#b32424;
+  --max:1040px;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  background:var(--paper);
+  background-image:radial-gradient(circle at 1px 1px, rgba(27,34,48,0.05) 1px, transparent 0);
+  background-size:22px 22px;
+  color:var(--ink);
+  min-height:100vh;
+  font-family:'Inter',Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex;
+  flex-direction:column;
+}
+
+a{ text-decoration:none; color:inherit; }
+button{ font-family:inherit; }
+:focus-visible{ outline:3px solid var(--accent-deep); outline-offset:2px; }
+
+img{ max-width:100%; }
+
+/* ---------- header ---------- */
+
+.site-header{
+  background:var(--ink);
+  color:#f4efe2;
+  padding:40px 24px 34px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.site-header::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0 0;
+  height:6px;
+  background:repeating-linear-gradient(90deg, var(--accent) 0 18px, transparent 18px 26px);
+  opacity:.9;
+}
+
+.eyebrow{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+  background:rgba(244,239,226,.08);
+  border:1px solid rgba(244,239,226,.25);
+  border-radius:999px;
+  padding:5px 12px;
+  margin-bottom:16px;
+}
+
+.site-header h1{
+  font-family:'Source Serif 4',serif;
+  font-weight:700;
+  font-size:clamp(1.6rem,3.6vw,2.4rem);
+  margin-bottom:10px;
+  letter-spacing:-.01em;
+}
+
+.site-header p{
+  opacity:.85;
+  font-size:1rem;
+  max-width:620px;
+  margin:0 auto;
+}
+
+/* ---------- nav (rendered by site.js) ---------- */
+
+.site-nav{
+  background:var(--paper-card);
+  border-bottom:1px solid var(--line);
+  padding:12px 16px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.site-nav-inner{
+  max-width:var(--max);
+  margin:0 auto;
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  align-items:center;
+  justify-content:center;
+  font-size:.88rem;
+}
+
+.site-nav-group{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.site-nav a{
+  color:var(--ink-soft);
+  font-weight:600;
+  padding:4px 2px;
+  border-bottom:2px solid transparent;
+}
+
+.site-nav a:hover, .site-nav a[aria-current="page"]{
+  color:var(--ink);
+  border-bottom-color:var(--accent);
+}
+
+.site-nav-sep{ color:var(--line); }
+
+/* ---------- layout / cards ---------- */
+
+main, .page-main{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:28px 20px 10px;
+  flex:1;
+  width:100%;
+}
+
+.card{
+  background:var(--paper-card);
+  padding:28px 28px 26px;
+  border-radius:4px 14px 14px 14px;
+  box-shadow:0 1px 3px rgba(27,34,48,.06), 0 10px 30px -12px rgba(27,34,48,.18);
+  border:1px solid var(--line);
+  margin-bottom:22px;
+  position:relative;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  top:0; right:0;
+  width:24px; height:24px;
+  background:linear-gradient(135deg, transparent 50%, var(--paper) 50%), var(--accent);
+  border-radius:0 4px 0 14px;
+  box-shadow:-2px 2px 4px rgba(27,34,48,.12);
+}
+
+.card h2{
+  font-family:'Source Serif 4',serif;
+  font-weight:600;
+  font-size:1.35rem;
+  margin-bottom:12px;
+  color:var(--ink);
+}
+
+.card h3{
+  font-family:'Source Serif 4',serif;
+  font-weight:600;
+  font-size:1.05rem;
+  margin:18px 0 6px;
+  color:var(--ink);
+}
+
+.card p, .card li{
+  color:var(--ink-soft);
+  line-height:1.6;
+  font-size:.96rem;
+}
+
+.card ul{ padding-left:20px; margin:8px 0 4px; }
+.card b{ color:var(--ink); }
+
+.card a.inline-link{
+  color:var(--accent-deep);
+  font-weight:700;
+  border-bottom:1px solid currentColor;
+}
+
+.cta-line{
+  margin:14px 0;
+  font-size:.96rem;
+}
+
+.cta-line a{
+  display:inline-block;
+  background:var(--ink);
+  color:#fff;
+  padding:11px 18px;
+  border-radius:8px;
+  font-weight:700;
+  font-size:.92rem;
+}
+
+.cta-line a:hover{ background:var(--accent-deep); }
+
+.related-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:6px;
+}
+
+.related-row a{
+  background:#fff;
+  border:1px solid var(--line);
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:600;
+  color:var(--ink-soft);
+}
+
+.related-row a:hover{ color:var(--ink); border-color:var(--accent); }
+
+/* ---------- form controls (tool pages) ---------- */
+
+label.field-label{
+  display:block;
+  font-size:.78rem;
+  font-weight:600;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin-bottom:6px;
+}
+
+input[type=file], input[type=text], select{
+  width:100%;
+  padding:12px 14px;
+  border:1.5px solid var(--line);
+  border-radius:8px;
+  margin-bottom:16px;
+  background:#fff;
+  font-size:.95rem;
+  color:var(--ink);
+}
+
+input[type=text]:focus, select:focus{ border-color:var(--accent); }
+
+button.action{
+  padding:13px 22px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+  background:var(--ink);
+  color:#fff;
+  font-size:.95rem;
+  transition:background .15s ease, transform .15s ease;
+}
+
+button.action:hover{ background:var(--accent-deep); transform:translateY(-1px); }
+
+#status, .status{
+  margin-top:18px;
+  padding:14px 16px;
+  background:var(--paper-card);
+  border:1px solid var(--line);
+  border-left:4px solid var(--accent);
+  border-radius:8px;
+  font-weight:600;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.86rem;
+  min-height:18px;
+}
+
+#status.success, .status.success{ border-left-color:var(--success); color:var(--success); }
+#status.error, .status.error{ border-left-color:var(--error); color:var(--error); }
+
+canvas{
+  border:2px dashed var(--line);
+  border-radius:10px;
+  background:#fff;
+  margin:10px 0 16px;
+  max-width:100%;
+  touch-action:none;
+}
+
+a#downloadLink, a#download{
+  display:inline-block;
+  background:var(--success);
+  color:#fff;
+  font-weight:700;
+  padding:11px 18px;
+  border-radius:8px;
+  margin-top:6px;
+}
+
+/* ---------- ad slots ----------
+   Empty containers that reserve space so layout doesn't jump
+   once real ad code is pasted in. Safe to leave empty. */
+
+.ad-slot{
+  max-width:var(--max);
+  margin:24px auto;
+  padding:0 20px;
+}
+
+.ad-slot .ad-box{
+  min-height:100px;
+  border:1px dashed var(--line);
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#9b9580;
+  background:rgba(255,255,255,.4);
+}
+
+/* ---------- footer ---------- */
+
+.site-footer{
+  text-align:center;
+  padding:30px 20px 18px;
+  color:var(--ink-soft);
+  font-size:.82rem;
+}
+
+.site-footer .footer-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+  margin-bottom:10px;
+  font-size:.85rem;
+}
+
+.site-footer .footer-links a{ font-weight:600; color:var(--ink-soft); }
+.site-footer .footer-links a:hover{ color:var(--ink); }
+
+/* ---------- responsive ---------- */
+
+@media(max-width:768px){
+  .site-header{ padding:30px 18px 26px; }
+  .site-header h1{ font-size:1.5rem; }
+  .card{ padding:22px 18px 20px; }
+  .site-nav-inner{ gap:10px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+}

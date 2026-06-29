@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Compress PDF Online Free | Reduce PDF Size to 100KB, 200KB</title>
+<meta name="description" content="Free PDF compressor tool to reduce PDF size online. Compress PDF to 100KB, 200KB or custom size for NEET, SSC, JEE and government forms.">
+<link rel="canonical" href="https://converttopdf.in/tools/pdf-compress.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Compress PDF Online Free | Reduce PDF Size">
+<meta property="og:description" content="Free PDF compressor to shrink file size for NEET, SSC, JEE and government form uploads. Runs in your browser.">
+<meta property="og:url" content="https://converttopdf.in/tools/pdf-compress.html">
+<meta property="og:image" content="https://converttopdf.in/assets/og-cover.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Compress PDF Online Free">
+<meta name="twitter:description" content="Free PDF compressor to shrink file size for NEET, SSC, JEE and government form uploads.">
+<meta name="twitter:image" content="https://converttopdf.in/assets/og-cover.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "PDF Compressor — Reduce PDF File Size",
+  "description": "Free online PDF compressor to reduce file size for NEET, SSC, JEE and government form uploads.",
+  "url": "https://converttopdf.in/tools/pdf-compress.html",
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much can I compress a PDF?",
+        "acceptedAnswer": { "@type": "Answer", "text": "It depends on the PDF. Files with scanned photos or images usually shrink the most, since this tool re-compresses embedded images at a lower quality." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this work for scanned PDFs?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, scanned PDFs made of photos benefit the most because their embedded images are re-encoded at a smaller size." }
+      }
+    ]
+  }
+}
+</script>
+
+<!--
+  ADSENSE — uncomment once your AdSense account is approved:
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="/assets/site.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>PDF Compressor Online Free</h1>
+  <p>Reduce PDF size for NEET, SSC, JEE &amp; government forms</p>
+</header>
+
+<nav id="site-nav"></nav>
+
+<div class="ad-slot"><div class="ad-box">Ad slot — paste AdSense unit here</div></div>
+
+<main>
+
+  <section class="card">
+    <h2>Compress your PDF</h2>
+    <label class="field-label" for="pdfFile">PDF file</label>
+    <input type="file" id="pdfFile" accept=".pdf">
+    <label class="field-label" for="quality">Quality</label>
+    <select id="quality">
+      <option value="0.85">High Quality (largest file)</option>
+      <option value="0.6" selected>Medium Quality (recommended)</option>
+      <option value="0.35">Low Size (smallest file)</option>
+    </select>
+    <button class="action" onclick="compressPDF()">Compress PDF</button>
+    <p id="status" class="status"></p>
+    <a id="download" style="display:none;">Download Compressed PDF</a>
+  </section>
+
+  <section class="card">
+    <h2>How this works</h2>
+    <p>This tool re-saves your PDF's internal structure and, when the PDF contains photos or scanned pages, re-encodes those embedded images at the quality level you choose. Text-only PDFs will shrink only a little, since there are no images to compress — that's expected, not a bug.</p>
+    <div class="related-row">
+      <a href="/tools/photo-resize-to-kb.html">Photo Resize Tool</a>
+      <a href="/tools/signature-resize.html">Signature Resize Tool</a>
+      <a href="/neet-photo-size-2027.html">NEET Photo Size 2027</a>
+      <a href="/ssc-photo-size-2027.html">SSC Photo Size 2027</a>
+      <a href="/jee-photo-size-2027.html">JEE Photo Size 2027</a>
+    </div>
+  </section>
+
+</main>
+
+<div class="ad-slot"><div class="ad-box">Ad slot — paste AdSense unit here</div></div>
+
+<footer id="site-footer"></footer>
+
+<script>
+
+renderSiteNav("compress");
+renderSiteFooter();
+
+function setStatus(msg, kind){
+  const status = document.getElementById("status");
+  status.innerText = msg;
+  status.classList.remove("success","error");
+  if(kind) status.classList.add(kind);
+}
+
+async function recompressImage(bytes, quality){
+  // Decode the embedded JPEG and re-encode it at the chosen quality.
+  const blob = new Blob([bytes], { type: "image/jpeg" });
+  const bitmap = await createImageBitmap(blob);
+  const canvas = document.createElement("canvas");
+  canvas.width = bitmap.width;
+  canvas.height = bitmap.height;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(bitmap, 0, 0);
+  const dataUrl = canvas.toDataURL("image/jpeg", quality);
+  const base64 = dataUrl.split(",")[1];
+  const binary = atob(base64);
+  const out = new Uint8Array(binary.length);
+  for(let i = 0; i < binary.length; i++) out[i] = binary.charCodeAt(i);
+  return out;
+}
+
+async function compressPDF(){
+
+  const file = document.getElementById("pdfFile").files[0];
+  const quality = parseFloat(document.getElementById("quality").value);
+  const download = document.getElementById("download");
+
+  if(!file){
+    alert("Please select a PDF");
+    return;
+  }
+
+  setStatus("Processing...");
+  download.style.display = "none";
+
+  try{
+
+    const { PDFDocument, PDFName, PDFRawStream } = PDFLib;
+    const existingPdfBytes = await file.arrayBuffer();
+    const originalSizeKB = Math.round(existingPdfBytes.byteLength / 1024);
+    const pdfDoc = await PDFDocument.load(existingPdfBytes);
+
+    let imagesProcessed = 0;
+
+    // Walk every object in the PDF and re-encode any JPEG image streams.
+    for(const [, obj] of pdfDoc.context.enumerateIndirectObjects()){
+      if(!(obj instanceof PDFRawStream)) continue;
+
+      const dict = obj.dict;
+      const subtype = dict.lookup(PDFName.of("Subtype"));
+      const filter = dict.lookup(PDFName.of("Filter"));
+      const filterName = filter && filter.toString ? filter.toString() : "";
+
+      const isImage = subtype && subtype.toString() === "/Image";
+      const isJpeg = filterName.includes("DCTDecode");
+
+      if(isImage && isJpeg){
+        try{
+          const newBytes = await recompressImage(obj.contents, quality);
+          // Only keep the recompression if it actually saved space.
+          if(newBytes.length < obj.contents.length){
+            obj.contents = newBytes;
+            dict.set(PDFName.of("Length"), PDFLib.PDFNumber.of(newBytes.length));
+            imagesProcessed++;
+          }
+        }catch(imgErr){
+          // Skip images that can't be decoded (e.g. unusual color spaces) and keep going.
+        }
+      }
+    }
+
+    const pdfBytes = await pdfDoc.save({ useObjectStreams: true });
+    const finalSizeKB = Math.round(pdfBytes.length / 1024);
+
+    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    download.href = url;
+    download.download = "compressed.pdf";
+    download.style.display = "block";
+    download.innerText = "Download Compressed PDF (" + finalSizeKB + " KB)";
+
+    if(imagesProcessed === 0){
+      setStatus("Done — " + originalSizeKB + " KB → " + finalSizeKB + " KB. No compressible images were found, so the reduction is small.", "success");
+    } else {
+      setStatus("Done — " + originalSizeKB + " KB → " + finalSizeKB + " KB (" + imagesProcessed + " image(s) recompressed).", "success");
+    }
+
+  }catch(err){
+    setStatus("Couldn't compress that file. Make sure it's a valid PDF.", "error");
+  }
+}
+
+</script>
+
+</body>
+</html>

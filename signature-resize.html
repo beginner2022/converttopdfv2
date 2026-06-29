@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Resize Signature to 20KB, 50KB Online Free | SSC, NEET Signature Tool</title>
+<meta name="description" content="Free online signature resize tool to compress signature image to 20KB, 50KB, 100KB for SSC, NEET, JEE and government forms.">
+<link rel="canonical" href="https://converttopdf.in/tools/signature-resize.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Resize Signature to 20KB–100KB Online Free | SSC, NEET, JEE">
+<meta property="og:description" content="Compress a signature image to an exact KB size for SSC, NEET, JEE and government job forms. Free, runs in your browser.">
+<meta property="og:url" content="https://converttopdf.in/tools/signature-resize.html">
+<meta property="og:image" content="https://converttopdf.in/assets/og-cover.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Resize Signature to 20KB–100KB Online Free">
+<meta name="twitter:description" content="Compress a signature image to an exact KB size for SSC, NEET, JEE and government job forms.">
+<meta name="twitter:image" content="https://converttopdf.in/assets/og-cover.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Signature Resize Tool — Resize Signature to Exact KB",
+  "description": "Free online signature resize tool to compress signature images for SSC, NEET, JEE and government forms.",
+  "url": "https://converttopdf.in/tools/signature-resize.html",
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I resize a signature to 20KB?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Upload your signature image, choose 20KB from the size list, and click Resize Signature." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which exams require a signature in this size range?",
+        "acceptedAnswer": { "@type": "Answer", "text": "SSC, NEET, JEE Main and Railway recruitment forms commonly ask for a signature between 10KB and 100KB." }
+      }
+    ]
+  }
+}
+</script>
+
+<!--
+  ADSENSE — uncomment once your AdSense account is approved:
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+
+<script src="/assets/site.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Signature Resize to 20KB, 50KB, 100KB Online</h1>
+  <p>Compress a signature image for SSC, NEET, JEE &amp; government forms</p>
+</header>
+
+<nav id="site-nav"></nav>
+
+<div class="ad-slot"><div class="ad-box">Ad slot — paste AdSense unit here</div></div>
+
+<main>
+
+  <section class="card">
+    <h2>Resize your signature</h2>
+    <label class="field-label" for="fileInput">Signature image</label>
+    <input type="file" id="fileInput" accept="image/*">
+    <label class="field-label" for="targetSize">Target size</label>
+    <select id="targetSize">
+      <option value="10">10 KB</option>
+      <option value="20">20 KB</option>
+      <option value="50">50 KB</option>
+      <option value="100">100 KB</option>
+    </select>
+    <button class="action" onclick="resizeSignature()">Resize Signature</button>
+    <p id="status" class="status"></p>
+    <a id="downloadLink" style="display:none;">Download Signature</a>
+    <canvas id="canvas" style="display:none;"></canvas>
+  </section>
+
+  <section class="card">
+    <h2>Signature resize tool for exams</h2>
+    <p>This tool resizes signature images to exact KB sizes required for SSC, NEET, JEE, Railway and other government job applications.</p>
+    <h3>Where it's used</h3>
+    <ul>
+      <li>SSC signature upload</li>
+      <li>NEET application signature</li>
+      <li>JEE Main form signature</li>
+      <li>Railway recruitment signature</li>
+    </ul>
+    <div class="related-row">
+      <a href="/tools/photo-resize-to-kb.html">Photo Resize Tool</a>
+      <a href="/tools/pdf-compress.html">PDF Compressor</a>
+      <a href="/neet-photo-size-2027.html">NEET Photo Size 2027</a>
+      <a href="/ssc-photo-size-2027.html">SSC Photo Size 2027</a>
+      <a href="/jee-photo-size-2027.html">JEE Photo Size 2027</a>
+    </div>
+  </section>
+
+</main>
+
+<div class="ad-slot"><div class="ad-box">Ad slot — paste AdSense unit here</div></div>
+
+<footer id="site-footer"></footer>
+
+<script>
+
+renderSiteNav("signature");
+renderSiteFooter();
+
+function resizeSignature(){
+
+  const fileInput = document.getElementById("fileInput");
+  const targetSize = parseInt(document.getElementById("targetSize").value);
+  const status = document.getElementById("status");
+  const downloadLink = document.getElementById("downloadLink");
+
+  status.classList.remove("success","error");
+
+  if(!fileInput.files[0]){
+    alert("Please upload a signature image");
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const img = new Image();
+
+    img.onload = function(){
+
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img,0,0);
+
+      let quality = 0.9;
+
+      function compress(){
+        let output = canvas.toDataURL("image/jpeg", quality);
+        let sizeKB = Math.round((output.length * 3) / 4 / 1024);
+
+        if(sizeKB > targetSize && quality > 0.1){
+          quality -= 0.05;
+          compress();
+        } else {
+          downloadLink.href = output;
+          downloadLink.download = "signature.jpg";
+          downloadLink.style.display = "block";
+          downloadLink.innerText = "Download Signature (" + sizeKB + " KB)";
+          status.innerText = "Done! Final size: " + sizeKB + " KB";
+          status.classList.add("success");
+        }
+      }
+
+      compress();
+    };
+
+    img.onerror = function(){
+      status.innerText = "That file couldn't be read as an image. Try a different file.";
+      status.classList.add("error");
+    };
+
+    img.src = e.target.result;
+  };
+
+  reader.readAsDataURL(file);
+}
+
+</script>
+
+</body>
+</html>

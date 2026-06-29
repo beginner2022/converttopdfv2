@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PDF Toolkit — Merge, Split, Sign & Convert PDFs Free Online</title>
+<meta name="description" content="Free online PDF tools for NEET, SSC and JEE students: merge, split, rotate, watermark, sign and convert PDFs. No login, runs in your browser.">
+<link rel="canonical" href="https://converttopdf.in/index.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="PDF Toolkit — Merge, Split, Sign & Convert PDFs Free">
+<meta property="og:description" content="Free online PDF tools for NEET, SSC and JEE students. No login, runs in your browser.">
+<meta property="og:url" content="https://converttopdf.in/index.html">
+<meta property="og:image" content="https://converttopdf.in/assets/og-cover.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PDF Toolkit — Merge, Split, Sign & Convert PDFs Free">
+<meta name="twitter:description" content="Free online PDF tools for NEET, SSC and JEE students. No login, runs in your browser.">
+<meta name="twitter:image" content="https://converttopdf.in/assets/og-cover.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PDF Toolkit",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Any (runs in browser)",
+  "url": "https://converttopdf.in/index.html",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online tool to merge, split, rotate, watermark, sign and convert PDFs and images, with no login required."
+}
+</script>
+
+<!--
+  ADSENSE — uncomment once your AdSense account is approved:
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+<script src="/assets/site.js"></script>
+
+<style>
+
+/* Page-specific bits that don't belong in the shared stylesheet */
+
+.tab-group, .link-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  width:100%;
+}
+
+.toolnav{
+  padding:24px 20px 0;
+  max-width:1040px;
+  margin:0 auto;
+}
+
+.link-group{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px dashed var(--line);
+}
+
+.toolnav button, .toolnav .nav-link{
+  padding:11px 18px;
+  border:none;
+  border-radius:10px 10px 0 0;
+  cursor:pointer;
+  font-weight:600;
+  font-size:.92rem;
+  color:#fff;
+  transition:transform .15s ease, box-shadow .15s ease;
+  position:relative;
+  top:2px;
+  box-shadow:0 2px 0 rgba(0,0,0,.12);
+}
+
+.toolnav button:hover, .toolnav .nav-link:hover{
+  top:0;
+  box-shadow:0 4px 0 rgba(0,0,0,.14);
+}
+
+#jpgBtnTab{ background:#2563eb; }
+#mergeBtnTab{ background:#1f7a4c; }
+#splitBtnTab{ background:#b4690e; }
+#rotateBtnTab{ background:#6d3fc0; }
+#extractBtnTab{ background:#0a7d8c; }
+#watermarkBtnTab{ background:#b32424; }
+#signatureBtnTab{ background:#0f766e; }
+
+.nav-link{
+  background:var(--ink-soft);
+  border-radius:8px;
+  top:0;
+  box-shadow:none;
+  font-size:.85rem;
+  opacity:.9;
+}
+
+.nav-link:hover{ opacity:1; background:var(--ink); }
+
+.tool{ display:none; }
+.tool.active{ display:block; animation:settle .2s ease; }
+
+@keyframes settle{
+  from{ opacity:0; transform:translateY(4px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.tool .hint{ font-size:.88rem; color:var(--ink-soft); margin-bottom:18px; }
+
+.subhead{
+  max-width:680px;
+  margin:0 auto;
+  padding:26px 24px 4px;
+  text-align:center;
+}
+
+.subhead h2{
+  font-family:'Source Serif 4',serif;
+  font-size:1.25rem;
+  font-weight:600;
+  margin-bottom:8px;
+}
+
+.subhead p{ color:var(--ink-soft); font-size:.95rem; line-height:1.5; }
+
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <span class="eyebrow">No login · Runs in your browser</span>
+  <h1>PDF Toolkit</h1>
+  <p>Merge, split, rotate, watermark, sign and convert PDFs — straight from your browser, free.</p>
+</header>
+
+<div class="subhead">
+  <h2>Free tools for NEET, SSC &amp; JEE students</h2>
+  <p>Resize photos to a target KB, compress PDFs and create signatures sized for government exam forms. Fast, free and nothing is uploaded to a server.</p>
+</div>
+
+<nav class="toolnav">
+  <div class="tab-group">
+    <button id="jpgBtnTab" onclick="showTool('jpg')">JPG → PDF</button>
+    <button id="mergeBtnTab" onclick="showTool('merge')">Merge</button>
+    <button id="splitBtnTab" onclick="showTool('split')">Split</button>
+    <button id="rotateBtnTab" onclick="showTool('rotate')">Rotate</button>
+    <button id="extractBtnTab" onclick="showTool('extract')">Extract</button>
+    <button id="watermarkBtnTab" onclick="showTool('watermark')">Watermark</button>
+    <button id="signatureBtnTab" onclick="showTool('signature')">Signature</button>
+  </div>
+  <div class="link-group" id="site-nav"></div>
+</nav>
+
+<div class="ad-slot"><div class="ad-box">Ad slot — paste AdSense unit here</div></div>
+
+<main>
+
+  <section id="jpg" class="tool card active">
+    <h2>JPG to PDF</h2>
+    <p class="hint">Choose one or more images — they'll be combined into a single PDF, in order.</p>
+    <label class="field-label" for="jpgFiles">Images</label>
+    <input type="file" id="jpgFiles" multiple accept="image/*">
+    <button class="action" id="jpgBtn">Create PDF</button>
+  </section>
+
+  <section id="merge" class="tool card">
+    <h2>Merge PDF</h2>
+    <p class="hint">Select two or more PDFs to combine into one file, in the order selected.</p>
+    <label class="field-label" for="mergeFiles">PDF files</label>
+    <input type="file" id="mergeFiles" multiple accept=".pdf">
+    <button class="action" id="mergeBtn">Merge PDFs</button>
+  </section>
+
+  <section id="split" class="tool card">
+    <h2>Split PDF</h2>
+    <p class="hint">Each page of the PDF downloads as its own separate file.</p>
+    <label class="field-label" for="splitFile">PDF file</label>
+    <input type="file" id="splitFile" accept=".pdf">
+    <button class="action" id="splitBtn">Split PDF</button>
+  </section>
+
+  <section id="rotate" class="tool card">
+    <h2>Rotate PDF</h2>
+    <p class="hint">Rotate every page in the file by the chosen angle.</p>
+    <label class="field-label" for="rotateFile">PDF file</label>
+    <input type="file" id="rotateFile" accept=".pdf">
+    <label class="field-label" for="rotationAngle">Angle</label>
+    <select id="rotationAngle">
+      <option value="90">90°</option>
+      <option value="180">180°</option>
+      <option value="270">270°</option>
+    </select>
+    <button class="action" id="rotateBtn">Rotate PDF</button>
+  </section>
+
+  <section id="extract" class="tool card">
+    <h2>Extract Pages</h2>
+    <p class="hint">Pull specific pages into a new PDF. List page numbers separated by commas.</p>
+    <label class="field-label" for="extractFile">PDF file</label>
+    <input type="file" id="extractFile" accept=".pdf">
+    <label class="field-label" for="extractPages">Pages</label>
+    <input type="text" id="extractPages" placeholder="1,3,5">
+    <button class="action" id="extractBtn">Extract Pages</button>
+  </section>
+
+  <section id="watermark" class="tool card">
+    <h2>Add Watermark</h2>
+    <p class="hint">Stamp text across every page of the document.</p>
+    <label class="field-label" for="watermarkFile">PDF file</label>
+    <input type="file" id="watermarkFile" accept=".pdf">
+    <label class="field-label" for="watermarkText">Watermark text</label>
+    <input type="text" id="watermarkText" placeholder="CONFIDENTIAL">
+    <button class="action" id="watermarkBtn">Add Watermark</button>
+  </section>
+
+  <section id="signature" class="tool card">
+    <h2>Add Signature</h2>
+    <p class="hint">Draw your signature, then apply it to the first page of the PDF.</p>
+    <label class="field-label" for="signaturePdf">PDF file</label>
+    <input type="file" id="signaturePdf" accept=".pdf">
+    <label class="field-label">Draw signature</label>
+    <canvas id="signatureCanvas" width="500" height="200"></canvas>
+    <br>
+    <button class="action" id="clearSignature">Clear</button>
+    <button class="action" id="signatureBtn">Apply Signature</button>
+  </section>
+
+  <div id="status"></div>
+
+</main>
+
+<div class="ad-slot"><div class="ad-box">Ad slot — paste AdSense unit here</div></div>
+
+<footer id="site-footer"></footer>
+
+<script>
+
+renderSiteNav("home");
+renderSiteFooter();
+
+const statusBox = document.getElementById("status");
+
+function setStatus(msg, kind){
+  statusBox.innerHTML = msg;
+  statusBox.classList.remove("success","error");
+  if(kind === "green") statusBox.classList.add("success");
+  else if(kind === "red" || kind === "error") statusBox.classList.add("error");
+}
+
+function showTool(id){
+  document.querySelectorAll(".tool").forEach(tool=>tool.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+const canvas = document.getElementById("signatureCanvas");
+const signaturePad = new SignaturePad(canvas);
+
+document.getElementById("clearSignature").addEventListener("click", () => {
+  signaturePad.clear();
+});
+
+document.getElementById("jpgBtn").addEventListener("click", async () => {
+  try{
+    const files = document.getElementById("jpgFiles").files;
+    if(files.length === 0){ alert("Select images"); return; }
+    setStatus("Creating PDF...");
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+    for(let i = 0; i < files.length; i++){
+      const file = files[i];
+      const reader = new FileReader();
+      const imageData = await new Promise(resolve => {
+        reader.onload = e => resolve(e.target.result);
+        reader.readAsDataURL(file);
+      });
+      if(i > 0) pdf.addPage();
+      pdf.addImage(imageData, "JPEG", 10, 10, 190, 270);
+    }
+    pdf.save("images.pdf");
+    setStatus("PDF created successfully", "green");
+  }catch(err){
+    setStatus("Something went wrong creating the PDF. Try again.", "error");
+  }
+});
+
+document.getElementById("mergeBtn").addEventListener("click", async () => {
+  try{
+    const files = document.getElementById("mergeFiles").files;
+    if(files.length < 2){ alert("Select at least 2 PDFs"); return; }
+    setStatus("Merging PDFs...");
+    const mergedPdf = await PDFLib.PDFDocument.create();
+    for(const file of files){
+      const bytes = await file.arrayBuffer();
+      const pdf = await PDFLib.PDFDocument.load(bytes);
+      const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+      pages.forEach(page => mergedPdf.addPage(page));
+    }
+    const mergedBytes = await mergedPdf.save();
+    downloadPDF(mergedBytes, "merged.pdf");
+    setStatus("Merge completed", "green");
+  }catch(err){
+    setStatus("Couldn't merge those files. Make sure they're valid PDFs.", "error");
+  }
+});
+
+document.getElementById("splitBtn").addEventListener("click", async () => {
+  try{
+    const file = document.getElementById("splitFile").files[0];
+    if(!file){ alert("Select PDF"); return; }
+    setStatus("Splitting PDF...");
+    const pdf = await PDFLib.PDFDocument.load(await file.arrayBuffer());
+    for(let i = 0; i < pdf.getPageCount(); i++){
+      const newPdf = await PDFLib.PDFDocument.create();
+      const [page] = await newPdf.copyPages(pdf, [i]);
+      newPdf.addPage(page);
+      const bytes = await newPdf.save();
+      downloadPDF(bytes, `page-${i+1}.pdf`);
+    }
+    setStatus("Split completed", "green");
+  }catch(err){
+    setStatus("Couldn't split that file. Make sure it's a valid PDF.", "error");
+  }
+});
+
+document.getElementById("rotateBtn").addEventListener("click", async () => {
+  try{
+    const file = document.getElementById("rotateFile").files[0];
+    if(!file){ alert("Select PDF"); return; }
+    const angle = parseInt(document.getElementById("rotationAngle").value);
+    setStatus("Rotating PDF...");
+    const pdf = await PDFLib.PDFDocument.load(await file.arrayBuffer());
+    pdf.getPages().forEach(page => page.setRotation(PDFLib.degrees(angle)));
+    const bytes = await pdf.save();
+    downloadPDF(bytes, "rotated.pdf");
+    setStatus("Rotation completed", "green");
+  }catch(err){
+    setStatus("Couldn't rotate that file. Make sure it's a valid PDF.", "error");
+  }
+});
+
+document.getElementById("extractBtn").addEventListener("click", async () => {
+  try{
+    const file = document.getElementById("extractFile").files[0];
+    if(!file){ alert("Select PDF"); return; }
+    const pagesText = document.getElementById("extractPages").value;
+    if(!pagesText){ alert("Enter page numbers"); return; }
+    setStatus("Extracting pages...");
+    const pdf = await PDFLib.PDFDocument.load(await file.arrayBuffer());
+    const newPdf = await PDFLib.PDFDocument.create();
+    const pageCount = pdf.getPageCount();
+    const indexes = pagesText.split(",").map(x => parseInt(x.trim()) - 1);
+    const valid = indexes.filter(i => i >= 0 && i < pageCount);
+    if(valid.length === 0){
+      setStatus(`No valid page numbers. This PDF has ${pageCount} page(s).`, "error");
+      return;
+    }
+    const pages = await newPdf.copyPages(pdf, valid);
+    pages.forEach(page => newPdf.addPage(page));
+    const bytes = await newPdf.save();
+    downloadPDF(bytes, "extracted.pdf");
+    setStatus("Pages extracted", "green");
+  }catch(err){
+    setStatus("Couldn't extract those pages. Check the file and page numbers.", "error");
+  }
+});
+
+document.getElementById("watermarkBtn").addEventListener("click", async () => {
+  try{
+    const file = document.getElementById("watermarkFile").files[0];
+    if(!file){ alert("Select PDF"); return; }
+    const text = document.getElementById("watermarkText").value;
+    if(!text){ alert("Enter watermark text"); return; }
+    setStatus("Adding watermark...");
+    const pdf = await PDFLib.PDFDocument.load(await file.arrayBuffer());
+    pdf.getPages().forEach(page => {
+      page.drawText(text, { x: 100, y: 300, size: 40, opacity: 0.4 });
+    });
+    const bytes = await pdf.save();
+    downloadPDF(bytes, "watermarked.pdf");
+    setStatus("Watermark added", "green");
+  }catch(err){
+    setStatus("Couldn't add the watermark. Make sure it's a valid PDF.", "error");
+  }
+});
+
+document.getElementById("signatureBtn").addEventListener("click", async () => {
+  try{
+    const file = document.getElementById("signaturePdf").files[0];
+    if(!file){ alert("Select PDF"); return; }
+    if(signaturePad.isEmpty()){ alert("Draw your signature"); return; }
+    setStatus("Adding signature...");
+    const pdf = await PDFLib.PDFDocument.load(await file.arrayBuffer());
+    const png = signaturePad.toDataURL("image/png");
+    const imageBytes = await fetch(png).then(r => r.arrayBuffer());
+    const image = await pdf.embedPng(imageBytes);
+    const page = pdf.getPages()[0];
+    page.drawImage(image, { x: 50, y: 50, width: 150, height: 70 });
+    const bytes = await pdf.save();
+    downloadPDF(bytes, "signed.pdf");
+    setStatus("Signature added", "green");
+  }catch(err){
+    setStatus("Couldn't add the signature. Make sure it's a valid PDF.", "error");
+  }
+});
+
+function downloadPDF(bytes, filename){
+  const blob = new Blob([bytes], { type: "application/pdf" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+</script>
+
+</body>
+</html>

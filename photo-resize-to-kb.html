@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Resize Image to 20KB, 50KB, 100KB Online Free | NEET, JEE, SSC Photo Tool</title>
+<meta name="description" content="Free online image resizer tool to compress photo to exact KB size like 20KB, 50KB, 100KB for NEET, JEE, SSC, Railway and government forms.">
+<link rel="canonical" href="https://converttopdf.in/tools/photo-resize-to-kb.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Resize Image to 20KB–100KB Online Free | NEET, JEE, SSC Photo Tool">
+<meta property="og:description" content="Compress a photo to an exact KB size for NEET, JEE, SSC, Railway and other government forms. Free, runs in your browser.">
+<meta property="og:url" content="https://converttopdf.in/tools/photo-resize-to-kb.html">
+<meta property="og:image" content="https://converttopdf.in/assets/og-cover.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Resize Image to 20KB–100KB Online Free">
+<meta name="twitter:description" content="Compress a photo to an exact KB size for NEET, JEE, SSC, Railway and other government forms.">
+<meta name="twitter:image" content="https://converttopdf.in/assets/og-cover.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Photo Resize Tool — Resize Image to Exact KB",
+  "description": "Free online image resizer tool to compress photos to exact KB size for NEET, JEE, SSC, Railway and government forms.",
+  "url": "https://converttopdf.in/tools/photo-resize-to-kb.html",
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I resize an image to 50KB?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Upload your image, choose 50KB from the size list, and click Resize Image. The tool compresses it until it fits under 50KB." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this photo resize tool free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, it is completely free and has no login requirement." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to use?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. The resizing happens entirely in your browser — your photo is never uploaded to a server." }
+      }
+    ]
+  }
+}
+</script>
+
+<!--
+  ADSENSE — uncomment once your AdSense account is approved:
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+
+<script src="/assets/site.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Resize Image to 20KB, 50KB, 100KB Online Free</h1>
+  <p>Compress photo to an exact KB size for NEET, JEE, SSC, Railway &amp; government forms</p>
+</header>
+
+<nav id="site-nav"></nav>
+
+<div class="ad-slot"><div class="ad-box">Ad slot — paste AdSense unit here</div></div>
+
+<main>
+
+  <section class="card">
+    <h2>Resize your photo</h2>
+    <label class="field-label" for="fileInput">Image</label>
+    <input type="file" id="fileInput" accept="image/*">
+    <label class="field-label" for="targetSize">Target size</label>
+    <select id="targetSize">
+      <option value="20">20 KB</option>
+      <option value="50">50 KB</option>
+      <option value="100">100 KB</option>
+      <option value="200">200 KB</option>
+    </select>
+    <button class="action" onclick="resizeImage()">Resize Image</button>
+    <p id="status" class="status"></p>
+    <a id="downloadLink" style="display:none;"></a>
+    <canvas id="canvas" style="display:none;"></canvas>
+  </section>
+
+  <section class="card">
+    <h2>Photo resize tool for government forms</h2>
+    <p>This tool resizes images to exact KB sizes for NEET, JEE, SSC, Railway and UPSC applications.</p>
+    <h3>Where it's used</h3>
+    <ul>
+      <li>NEET photo size</li>
+      <li>JEE photo size</li>
+      <li>SSC photo size</li>
+      <li>Railway photo size</li>
+    </ul>
+    <div class="related-row">
+      <a href="/tools/signature-resize.html">Signature Resize Tool</a>
+      <a href="/tools/pdf-compress.html">PDF Compressor</a>
+      <a href="/neet-photo-size-2027.html">NEET Photo Size 2027</a>
+      <a href="/ssc-photo-size-2027.html">SSC Photo Size 2027</a>
+      <a href="/jee-photo-size-2027.html">JEE Photo Size 2027</a>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Frequently asked questions</h2>
+    <h3>How do I resize an image to 50KB?</h3>
+    <p>Upload your image, choose 50KB from the list, then click Resize Image.</p>
+    <h3>Is this free?</h3>
+    <p>Yes, 100% free with no login.</p>
+    <h3>Is it safe?</h3>
+    <p>Yes — everything runs in your browser, nothing is uploaded.</p>
+  </section>
+
+</main>
+
+<div class="ad-slot"><div class="ad-box">Ad slot — paste AdSense unit here</div></div>
+
+<footer id="site-footer"></footer>
+
+<script>
+
+renderSiteNav("photo");
+renderSiteFooter();
+
+function resizeImage(){
+
+  const fileInput = document.getElementById("fileInput");
+  const targetSize = parseInt(document.getElementById("targetSize").value);
+  const status = document.getElementById("status");
+  const downloadLink = document.getElementById("downloadLink");
+
+  status.classList.remove("success","error");
+
+  if(!fileInput.files[0]){
+    alert("Please upload an image");
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const img = new Image();
+
+    img.onload = function(){
+
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img,0,0);
+
+      let quality = 0.9;
+
+      function compress(){
+        let output = canvas.toDataURL("image/jpeg", quality);
+        let sizeKB = Math.round((output.length * 3) / 4 / 1024);
+
+        if(sizeKB > targetSize && quality > 0.1){
+          quality -= 0.05;
+          compress();
+        } else {
+          downloadLink.href = output;
+          downloadLink.download = "resized.jpg";
+          downloadLink.style.display = "block";
+          downloadLink.innerText = "Download Image (" + sizeKB + " KB)";
+          status.innerText = "Done! Final size: " + sizeKB + " KB";
+          status.classList.add("success");
+        }
+      }
+
+      compress();
+    };
+
+    img.onerror = function(){
+      status.innerText = "That file couldn't be read as an image. Try a different file.";
+      status.classList.add("error");
+    };
+
+    img.src = e.target.result;
+  };
+
+  reader.readAsDataURL(file);
+}
+
+</script>
+
+</body>
+</html>
